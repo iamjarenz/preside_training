@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form i18nBaseUri="widgets.faq:">
+	<tab>
+		<fieldset>
+			<field name="title" />
+			<field name="faq_item" object="faq_item" control="objectPicker" multiple="true" sortable="true" quickadd="true" quickedit="true" required="true"/>
+		</fieldset>
+	</tab>
+</form>
