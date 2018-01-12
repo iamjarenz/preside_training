@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form i18nBaseUri="page-types.event_detail:">
+
+	<tab id="main">
+		<fieldset id="main">
+			<!-- add / remove / modify fields in the main tab & fieldset here -->
+			<field binding="page.bottom_content"           />
+			<field binding="event_detail.start_date"      />
+			<field binding="event_detail.end_date"        />
+			<field binding="event_detail.region"          />
+			<field binding="event_detail.category"        />
+			<field binding="event_detail.programmes"      />
+		</fieldset>
+	</tab>
+</form>

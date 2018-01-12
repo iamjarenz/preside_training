@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form i18nBaseUri="page-types.news_detail:">
+
+	<tab id="main">
+		<fieldset id="main">
+			<!-- add / remove / modify fields in the main tab & fieldset here -->
+			<field binding="page.right_content"           />
+			<field binding="news_detail.region"           />
+			<field binding="news_detail.category"         />
+			<field binding="news_detail.publish_date"     />
+			<field binding="news_detail.news_author"     />
+		</fieldset>
+	</tab>
+</form>
