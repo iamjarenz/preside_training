@@ -8,6 +8,8 @@
 	     .include( "css-layout"    )
 	     .include( "js-bootstrap"  )
 	     .include( "js-jquery"     );
+
+	hideAddthis = getSystemSetting( category="addthis", setting="hide_addthis", default="false"  );
 </cfscript>
 
 <cfoutput><!DOCTYPE html>
@@ -40,6 +42,16 @@
 		</div>
 
 		#adminBar#
+		
+
+
+		<cfif isEmptyString(hideAddthis)>
+			<cfscript>
+				addThisProfileId = getSystemSetting( category="addthis", setting="profile_id", default="ra-5a5c4c9cbfb3a849"  );
+			</cfscript>
+
+			<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js##pubid=#addThisProfileId#" async="async"></script>
+		</cfif>
 
 		#event.renderIncludes( "js" )#
 	</body>

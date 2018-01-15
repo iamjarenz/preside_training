@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form i18nBaseUri="system-config.addthis:">
+	<tab id="default">
+		<fieldset id="default">
+			<field name="profile_id"   control="textinput"   required="true" />
+			<field name="hide_addthis" control="yesNoSwitch" required="false" />
+		</fieldset>
+	</tab>
+</form>
