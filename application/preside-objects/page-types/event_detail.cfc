@@ -10,4 +10,5 @@ component  {
 	property name="region"      relatedto="region"       relationship="many-to-many" relatedvia="event_detail_region" quickadd=true      quickedit=true;
 	property name="category"    relatedto="category"     relationship="many-to-one"  quickadd=true      quickedit=true;
 	property name="programmes"  relatedto="programme"    relationship="one-to-many"  quickadd=true      quickedit=true relationshipkey="event_detail";
+	property name="documents"   relatedTo="asset"        relationship="many-to-one";
 }

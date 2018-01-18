@@ -97,6 +97,27 @@ component {
 
     }
 
+
+    public query function getSelectedEvents( required string selectedEvents ) {
+
+		var selectedEvents = $getPresideObjectService().selectData(
+			  objectName = "event_detail"
+			, selectFields = [
+				  "event_detail.id"
+				, "page.title"
+				, "event_detail.start_date"
+				, "event_detail.end_date"
+				, "event_detail.category"
+				, "category.label as category_label"
+			]
+			, filter  = "page.id IN ( " & listQualify(arguments.selectedEvents, "'" ) & ")"
+			, orderBy = "event_detail.start_date ASC"
+		);
+
+		return selectedEvents;
+
+    }
+
     public query function getEventCategoryFilter( required string eventListingId )  {
 
     	return  $getPresideObjectService().selectData(

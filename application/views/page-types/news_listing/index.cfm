@@ -1,14 +1,22 @@
 <cf_presideparam name="args.pageId"          field="page.id"                      />
 <cf_presideparam name="args.title"           field="page.title"                   editable="true" />
 <cf_presideparam name="args.main_content"    field="page.main_content"            editable="true" />
+<cf_presideparam name="args.main_image"      field="page.main_image"     />
 
 <cfscript>
 	newsDetails          = args.newsDetails          ?: queryNew("");
 	activeRegionFilter   = args.activeRegionFilter   ?: "";
 	activeCategoryFilter = args.activeCategoryFilter ?: "";
+	main_image           = args.main_image           ?: "";
 </cfscript>
 
 <cfoutput>
+
+	<cfif !isEmptyString( main_image ) >
+		<div class="img-wrap">
+			#renderAsset( assetId=main_image, args={ derivative="leadImage" } )#
+		</div>
+	</cfif>
 	
 
 	<h1>#args.title#</h1>

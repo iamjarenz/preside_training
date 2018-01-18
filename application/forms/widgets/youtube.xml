@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form i18nBaseUri="widgets.youtube:">
+	<tab>
+		<fieldset>
+			<field name="title" />
+			<field name="video_id"   required="true" />
+			<field name="dimensions" control="imageDimensions" required="true" />
+		</fieldset>
+	</tab>
+</form>
