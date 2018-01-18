@@ -6,9 +6,19 @@
 <cf_presideparam name="args.news_author"   field="news_detail.news_author"             />
 <cf_presideparam name="args.publish_date"  field="news_detail.publish_date"          />
 <cf_presideparam name="args.category"      field="news_detail.category"                    />
+<cf_presideparam name="args.main_image"    field="page.main_image"     />
+
+<cfscript>
+	main_image = args.main_image ?: "";
+</cfscript>
 
 <cfoutput>
 
+	<cfif !isEmptyString( main_image ) >
+		<div class="img-wrap">
+			#renderAsset( assetId=main_image, args={ derivative="detailImage" } )#
+		</div>
+	</cfif>
 
 	<h1>#args.title# </h1>
 

@@ -16,5 +16,17 @@ component extends="preside.system.config.Config" {
 		settings.ckeditor.defaults.stylesheets.append( "css-layout" );
 
 		settings.features.websiteUsers.enabled = false;
+
+		settings.assetmanager.derivatives.leadImage = {
+		      permissions     = "inherit"
+		    , inEditor        = true
+		    , transformations = [ { method="resize", args={ width=700, height=400 } } ]
+		};
+		settings.assetmanager.derivatives.detailImage = {
+		      permissions     = "inherit"
+		    , inEditor        = true
+		    , transformations = [ { method="shrinkToFit", args={ width=700, height=400 } } ]
+		};
+
 	}
 }
