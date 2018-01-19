@@ -11,8 +11,7 @@ component {
     	  required string newsListingId
     	,          string activeRegionFilter   = ""
     	,          string activeCategoryFilter = ""
-    	,          string excludeCurrentId     = ""
-    	,          string excludeFeaturedNews  = ""
+    	,          string excludeId            = ""
     ) {
     	var filter = "page.parent_page = '#arguments.newsListingId#' AND news_detail.publish_date <= DATE(" & now() & ")";
 
@@ -22,11 +21,8 @@ component {
 		if( len( trim( arguments.activeCategoryFilter ) ) ) {
 			filter &= " AND news_detail.category IN ( " & listQualify(arguments.activeCategoryFilter, "'" ) & ")";
 		}
-		if( len( trim( arguments.excludeCurrentId ) ) ) {
-			filter &= " AND page.id != '" & arguments.excludeCurrentId & "'";
-		}
-		if( len( trim( arguments.excludeFeaturedNews ) ) ) {
-			filter &= " AND page.id NOT IN ( " & listQualify(arguments.excludeFeaturedNews, "'" ) & ")";
+		if( len( trim( arguments.excludeId ) ) ) {
+			filter &= " AND page.id NOT IN ( " & listQualify(arguments.excludeId, "'" ) & ")";
 		}
 
 

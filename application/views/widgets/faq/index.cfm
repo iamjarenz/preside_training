@@ -14,8 +14,8 @@
 		<cfif !isEmptyString(selectedFaqItems) >
 			<hr>
 			#renderView( 
-				  view         = "widgets/faq/_faqItem"
-				, presideObject= "faq_item" 
+				  view          = "widgets/faq/_faqItem"
+				, presideObject = "faq_item" 
 				, filter        = { id = listToArray( selectedFaqItems ) }
 				, orderBy       = "FIELD( id, #listQualify( selectedFaqItems, "'" )# )"
 			)#

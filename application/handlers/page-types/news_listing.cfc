@@ -15,7 +15,7 @@ component {
 			  newsListingId         = pageId
 			, activeRegionFilter    = args.activeRegionFilter
 			, activeCategoryFilter  = args.activeCategoryFilter
-			, excludeFeaturedNews   = valueList(featuredNews.id)
+			, excludeId             = valueList(featuredNews.id)
 		);
 		args.filterRegion         = newsService.getRegionFilters();
 		args.filterCategory       = newsService.getCategoryFilters();
