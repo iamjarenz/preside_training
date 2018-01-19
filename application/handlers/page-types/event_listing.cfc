@@ -15,7 +15,7 @@ component {
 			  eventListingId        = pageId
 			, activeRegionFilter    = args.activeRegionFilter
 			, activeCategoryFilter  = valueList(activeCategoryFilter.id)
-			, excludeFeaturedEvent  = valueList(featuredEvent.id)
+			, excludeId             = valueList(featuredEvent.id)
 		);
 		args.filterRegion         = eventService.getRegionFilters();
 		args.filterCategory       = eventService.getCategoryFilters();

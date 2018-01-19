@@ -17,16 +17,29 @@ component extends="preside.system.config.Config" {
 
 		settings.features.websiteUsers.enabled = false;
 
-		settings.assetmanager.derivatives.leadImage = {
-		      permissions     = "inherit"
-		    , inEditor        = true
-		    , transformations = [ { method="resize", args={ width=700, height=400 } } ]
-		};
-		settings.assetmanager.derivatives.detailImage = {
-		      permissions     = "inherit"
-		    , inEditor        = true
-		    , transformations = [ { method="shrinkToFit", args={ width=700, height=400 } } ]
-		};
+		_setupDerivatives( settings.assetmanager.derivatives );
 
+
+	}
+
+
+	private void function _setupDerivatives( required struct derivatives ) {
+
+		derivatives.leadImage = {
+		      permissions     = "inherit"
+		    , inEditor        = true
+		    , transformations = [ { 
+		    	  method = "resize"
+		    	, args   = { width=770, height=400, maintainAspectRatio=true } 
+		    } ]
+		};
+		derivatives.detailImage = {
+		      permissions     = "inherit"
+		    , inEditor        = true
+		    , transformations = [ { 
+		    	  method = "shrinkToFit"
+		    	, args   = { width=770, height=400 } 
+		    } ]
+		};
 	}
 }

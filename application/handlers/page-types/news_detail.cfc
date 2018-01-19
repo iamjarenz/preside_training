@@ -22,7 +22,7 @@ component {
 		args.relatedNews = newsService.getAllNewsDetail(
 			  newsListingId      = args.parentPage
 			, activeRegionFilter = valueList(regions.id)
-			, excludeCurrentId   = args.newsDetailId
+			, excludeId          = args.newsDetailId
 		);
 
 		return renderView(

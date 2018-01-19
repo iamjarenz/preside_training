@@ -7,6 +7,15 @@
 		<cfif !isEmptyString(args.title)>
 			<h3>#args.title#</h3>
 		</cfif>
-		#renderViewlet( event="widgets.event._renderSelectedEvents", args={ selectedEvents=args.event_items } )#
+		<div class="events-list">
+			<cfloop list="#args.event_items#" item="id">
+				#renderView( 
+					  view          = "widgets/event/_selectedEvents"
+					, presideObject = "event_detail" 
+					, id            = id
+				)#
+			</cfloop>
+		</div>
+
 	</div>
 </cfoutput>
