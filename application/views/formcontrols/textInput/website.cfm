@@ -6,6 +6,7 @@
 	maxlength    = args.maxlength    ?: "";
 	minlength    = args.minlength    ?: "";
 	placeholder  = args.placeholder  ?: "";
+	readOnly     = args.readOnly     ?: "";
 	placeholder  = HtmlEditFormat( translateResource( uri=placeholder, defaultValue=placeholder ) );
 
 	value  = event.getValue( name=inputName, defaultValue=defaultValue );
@@ -17,5 +18,5 @@
 </cfscript>
 
 <cfoutput>
-	<input type="text" id="#inputId#" placeholder="#placeholder#" name="#inputName#" value="#value#" class="#inputClass# form-control" tabindex="#getNextTabIndex()#"<cfif isNumeric( maxlength ) and maxlength gt 0> maxlength="#maxlength#"</cfif> <cfif isNumeric( minlength ) and minlength gt 0> minlength="#minlength#"</cfif>>
+	<input type="text" id="#inputId#" placeholder="#placeholder#" name="#inputName#" value="#value#" class="#inputClass# form-control" tabindex="#getNextTabIndex()#"<cfif isNumeric( maxlength ) and maxlength gt 0> maxlength="#maxlength#"</cfif> <cfif isNumeric( minlength ) and minlength gt 0> minlength="#minlength#"</cfif> <cfif !isEmptyString(readOnly)>readonly</cfif>>
 </cfoutput>
