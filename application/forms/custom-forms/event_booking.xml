@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form i18nBaseUri="custom-forms.event_booking:">
+	<tab id="main">
+		<fieldset id="event_booking">
+			<field name="event_detail" binding="event_booking.event_detail" control="hidden" required="true" />
+			<field name="firstname"       control="textInput"    required="true" />
+			<field name="lastname"        control="textInput"    required="true" />
+			<field name="email"           control="emailInput"   required="true"  />
+			<field name="number_seats"    control="spinner"      required="true" minvalue="1" maxvalue="10" step="1" defaultValue="1" />
+			<field name="total_amount"    control="textInput"    readOnly="true"     />
+			<field name="session"         control="checkboxList" required="true" values="a,b,c" labels="a,b,c" />
+			<field name="special_request" control="textarea"     rows="7" />
+		</fieldset>
+	</tab>
+</form>

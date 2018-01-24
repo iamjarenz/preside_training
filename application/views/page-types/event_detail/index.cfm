@@ -1,4 +1,5 @@
 <cf_presideparam name="args.pageId"         field="page.id" />
+<cf_presideparam name="args.slug"           field="page.slug" />
 <cf_presideparam name="args.parentId"       field="page.parent_page"             />
 <cf_presideparam name="args.title"          field="page.title"          editable="true" />
 <cf_presideparam name="args.main_content"   field="page.main_content"   editable="true" />
@@ -8,6 +9,7 @@
 <cf_presideparam name="args.end_date"       field="event_detail.end_date" />
 <cf_presideparam name="args.category"       field="event_detail.category" />
 <cf_presideparam name="args.documents"      field="event_detail.documents" />
+<cf_presideparam name="args.bookable"      field="event_detail.bookable" />
 
 
 <cfoutput>
@@ -38,6 +40,12 @@
 			</cfif>
 		</div>
 		<div class="col-xs-12 col-md-4">
+			<cfif isTrue(args.bookable)>
+				<div class="widget widget-booking">
+					<a href="#event.buildLink( page="event_booking_page", queryString="ev=#args.slug#" )#" class="btn btn-primary btn-block">Book now</a>
+				</div>
+				<hr>
+			</cfif>
 			#args.right_content#
 		</div>
 	</div>
