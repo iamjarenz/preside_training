@@ -11,8 +11,7 @@ component {
     	  required string eventListingId
     	,          string activeRegionFilter   = ""
     	,          string activeCategoryFilter = ""
-    	,          string excludeCurrentId     = ""
-    	,          string excludeFeaturedEvent  = ""
+    	,          string excludeId            = ""
     ) {
     	var filter = "page.parent_page = '#arguments.eventListingId#' AND event_detail.start_date >= DATE(" & now() & ")";
 
@@ -23,11 +22,8 @@ component {
 		if( len( trim( arguments.activeCategoryFilter ) ) ) {
 			filter &= " AND event_detail.category IN ( " & listQualify(arguments.activeCategoryFilter, "'" ) & ")";
 		}
-		if( len( trim( arguments.excludeCurrentId ) ) ) {
-			filter &= " AND page.id != '" & arguments.excludeCurrentId & "'";
-		}
-		if( len( trim( arguments.excludeFeaturedEvent ) ) ) {
-			filter &= " AND page.id NOT IN ( " & listQualify(arguments.excludeFeaturedEvent, "'" ) & ")";
+		if( len( trim( arguments.excludeId ) ) ) {
+			filter &= " AND page.id NOT IN ( " & listQualify(arguments.excludeId, "'" ) & ")";
 		}
 
 

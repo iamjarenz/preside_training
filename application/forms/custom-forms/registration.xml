@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form i18nBaseUri="custom-forms.registration:">
+	<tab id="main">
+		<fieldset id="personal_details">
+			<field name="firstname"     control="textInput"    required="true" />
+			<field name="lastname"      control="textInput"    required="true" />
+			<field name="dob"           control="datePicker"   required="true"  minDate="1907-01-01" maxDate="2000-12-31" />
+			<field name="email"         control="emailInput"   required="true"  />
+			<field name="gender"        control="radio"        required="false" values="m,f" labels="Male,Female"  />
+			<field name="address"       control="textarea"     required="false" rows="7" />
+			<field name="interested_in" control="checkboxList" required="false" object="category"   />
+		</fieldset>
+		<fieldset id="account_info">
+			<field name="user_id"     control="textInput"    required="true" />
+			<field name="password"      control="password"    required="true" />
+			<field name="password_confirm"      control="password"    required="true" />
+		</fieldset>
+	</tab>
+</form>

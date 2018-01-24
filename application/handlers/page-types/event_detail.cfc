@@ -34,7 +34,7 @@ component {
 		args.relatedEvents = eventService.getAllEventDetail(
 			  eventListingId      = args.parentPage
 			, activeRegionFilter = valueList(regions.id)
-			, excludeCurrentId   = args.eventDetailId
+			, excludeId          = args.eventDetailId
 		);
 
 		return renderView(

@@ -12,6 +12,13 @@ body {
   padding-right: 15px;
 }
 
+/*Custom container layout*/
+@media screen and (min-width: 768px) {
+  .container {
+    width: 800px;
+  }
+}
+
 /* Custom page header */
 .header {
   border-bottom: 1px solid #e5e5e5;
@@ -31,12 +38,7 @@ body {
   border-top: 1px solid #e5e5e5;
 }
 
-/* Customize container */
-@media (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
-}
+
 .container-narrow > hr {
   margin: 30px 0;
 }
@@ -85,6 +87,6 @@ body {
     }
   }
 }
-h1 {
+h1, h2, h3, h4, h5, h6 {
   margin-top: 0;
 }

@@ -3,7 +3,6 @@
 
 	<tab id="main">
 		<fieldset id="main">
-			<!-- add / remove / modify fields in the main tab & fieldset here -->
 			<field binding="page.right_content"           />
 			<field binding="page.bottom_content"          />
 			<field binding="event_detail.start_date"      />
@@ -12,6 +11,13 @@
 			<field binding="event_detail.category"        />
 			<field binding="event_detail.programmes"      />
 			<field binding="event_detail.documents" control="assetPicker" allowedTypes="document" />
+		</fieldset>
+	</tab>
+	<tab id="event_booking">
+		<fieldset id="event_booking">
+			<field binding="event_detail.bookable"          />
+			<field binding="event_detail.price"          />
+			<field binding="event_detail.sessions"      />
 		</fieldset>
 	</tab>
 </form>
