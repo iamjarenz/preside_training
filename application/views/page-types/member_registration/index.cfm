@@ -15,9 +15,9 @@
 				</div>
 			</cfif>
 
-			<form action="#event.buildLink( linkTo='WebsiteUser.submitRegistration' )#">
+			<form action="#event.buildLink( linkTo='page-types/member_registration.submit' )#">
 				#renderForm(
-					  formName            = "custom-forms.registration"
+					  formName            = "registration.user_details"
 					, context             = "website"
 					, formId              = "registration"
 					, savedData           = rc.savedData  ?: {}

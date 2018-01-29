@@ -18,9 +18,11 @@
 </cfscript>
 
 <cfoutput>
+
 	<h1>#args.title# for "#event_detail.TITLE#"</h1>
 	<div class="row">
 		<div class="col-xs-12 col-md-8">
+			<p>Price: #decimalFormat(event_detail.PRICE)#</p>
 			
 			#args.main_content#
 
@@ -31,9 +33,9 @@
 			</cfif>
 
 
-			<form action="#event.buildLink( linkTo='EventBooking.submit' )#">
+			<form action="#event.buildLink( linkTo='page-types/event_booking_page.submit', queryString="ev=#rc.ev#" )#">
 				#renderForm(
-					  formName            = "custom-forms.event_booking"
+					  formName            = "event-booking.booking_details"
 					, context             = "website"
 					, formId              = "event_booking"
 					, savedData           = rc.savedData  ?: {}
@@ -42,7 +44,7 @@
 					, additionalArgs      = additionalArgs
 					, fieldLayout         = "formcontrols.layouts.formfield.website"
 				)#
-				<input type="hidden" name="slug" value="#rc.ev#">
+				<input type="hidden" name="ev" value="#rc.ev#">
 				<input type="hidden" name="price" value="#event_detail.PRICE#">
 				<div class="form-group">
 					<input type="submit" value="Submit" class="btn">
