@@ -99,6 +99,39 @@ component {
 
 	}
 
+	public query function getUserInterests( required string user_detail ) {
+
+		return $getPresideObjectService().selectData(
+			  objectName = "user_interests"
+			, selectFields = [ "category.label" ]
+			, filter = { "user_detail" = arguments.user_detail }
+			, orderBy      = "category.label ASC"
+		);
+	}
+
+	public void function sendMemberConfirmationEmail(
+		  required string email_address
+		, required string firstname
+		, required string lastname
+		, required struct member_details
+		, required string login_id
+	) {
+
+		var display_name      = arguments.firstname & " " & arguments.lastname;
+
+		// Emails
+		$sendEmail(
+			  template = "MemberConfirmation"
+			, to       = [ arguments.email_address ]
+			, args     = {
+				  member_details  = arguments.member_details
+				, display_name    = display_name
+				, login_id        = login_id
+			}
+		);
+	}
+
+
 // private accessors
 	private any function _getBCryptService() {
 		return _bCryptService;

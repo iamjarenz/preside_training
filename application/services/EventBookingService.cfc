@@ -43,7 +43,7 @@ component {
 	}
 
 
-	public any function saveBookingSessions(
+	public void function saveBookingSessions(
 		  required string event_booking
 		, required array sessions
 	) {
@@ -60,6 +60,40 @@ component {
 			ctr++;
 		}
 
+	}
+
+
+    public query function getBookingSessions( required string event_booking ) {
+
+    	return  $getPresideObjectService().selectData(
+			  selectFields = [ "session.label" ]
+			, objectName = "event_booking_sessions"
+			, filter     = { "event_booking" = arguments.event_booking }
+			, orderBy    = "session.label ASC"
+		);
+    }
+
+
+	public void function sendEventBookingConfirmationEmail(
+		  required string email_address
+		, required string firstname
+		, required string lastname
+		, required struct event_details
+		, required struct booking_details
+	) {
+
+		var display_name      = arguments.firstname & " " & arguments.lastname;
+
+		// Emails
+		$sendEmail(
+			  template = "EventBooking"
+			, to       = [ arguments.email_address ]
+			, args     = {
+				  event_details  = arguments.event_details
+				, booking_details  = arguments.booking_details
+				, display_name    = display_name
+			}
+		);
 	}
 
 // private accessors

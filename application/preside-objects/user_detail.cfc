@@ -1,5 +1,6 @@
 /**
 * @noLabel true
+* @dataManagerGridFields firstname,lastname,datecreated
 */
 
 component {

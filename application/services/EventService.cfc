@@ -152,8 +152,11 @@ component {
 				  "event_detail.id"
 				, "page.title"
 				, "event_detail.start_date"
+				, "event_detail.end_date"
 				, "event_detail.bookable"
 				, "event_detail.price"
+				, "event_detail.category"
+				, "category.label as category_label"
 			]
 			, filter = { "page.slug" = arguments.eventSlug }
 		);

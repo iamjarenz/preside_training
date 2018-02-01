@@ -16,13 +16,14 @@ component {
 
 	public function submit( event, rc, prc, args={} ) {
 
-		var formName   = "custom-forms.registration";
+		var formName   = "registration.user_details";
 		var formData   = event.getCollectionForForm( formName );
 		var validation = validateForm( formName, formData );
 		var alertClass = "";
 		var websiteUser = "";
 		var userDetail = "";
-		var userInterest = "";
+		var userInterests = "";
+		var memberDetail = {};
 		var hasError = false;
 
 
@@ -86,14 +87,38 @@ component {
 
 					if( !isEmptyString(websiteUser) && !isEmptyString(userDetail) && !isEmptyString(formData.interested_in) ) {
 
-						userInterest  = userService.saveWebsiteUserInterest(
+						userService.saveWebsiteUserInterest(
 							  interests = listToArray(formData.interested_in) 
 							, user_id   = userDetail
 						);
+
+						userInterests = userService.getUserInterests(userDetail);
 					}
 
+					memberDetail = {
+						personal = {
+							  firstname = formData.firstname
+							, lastname  = formData.lastname
+							, email     = formData.email
+							, gender    = formData.gender
+							, dob       = formData.dob
+							, address   = formData.address
+						}
+						, interests   = ValueList(userInterests.label) ?: ""
+					};
+
+
+
+					userService.sendMemberConfirmationEmail(
+						  email_address  = formData.email
+						, firstname      = formData.firstname
+						, lastname       = formData.lastname
+						, member_details = memberDetail
+						, login_id       = formData.user_id
+					);
+
 					alertClass = "alert-success";
-					validation.setGeneralMessage( translateResource( "forms:alert.form_success" ) );
+					validation.setGeneralMessage( translateResource( "forms:alert.form_success_registration" ) );
 				}
 				else {
 					alertClass = "alert-danger";

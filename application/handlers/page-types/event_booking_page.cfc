@@ -45,6 +45,9 @@ component {
 		var alertClass = "";
 		var eventBooked = "";
 		var eventSessions = "";
+		var eventRegions = "";
+		var eventDetail = {};
+		var bookingDetail = {};
 		var hasError = false;
 
 
@@ -63,13 +66,56 @@ component {
 
 			if( !isEmptyString(eventBooked) ) {
 				if( !isEmptyString(formData.session) ) {
-					eventSessions = eventBookingService.saveBookingSessions(
+					eventBookingService.saveBookingSessions(
 						  event_booking = eventBooked
 						, sessions      = listToArray(formData.session) 
 					);
 				}
+
+				// build event detail data struct
+				eventDetail = {
+					event_detail = {
+						  title      = prc.event_detail.title
+						, start_date = prc.event_detail.start_date
+						, end_date   = prc.event_detail.end_date
+						, category   = prc.event_detail.category_label
+						, price      = prc.event_detail.price
+					}
+				};
+
+				// get event regions
+				eventRegions = eventService.getEventRegions(eventDetailId=prc.event_id);
+				// add regions to event detail struct
+				eventDetail.event_detail.region = ValueList(eventRegions.label) ?: "";
+
+				// build event booking data struct
+				bookingDetail =  {
+					booking_detail = {
+						  firstname       = formData.firstname
+						, lastname        = formData.lastname
+						, email           = formData.email
+						, number_seats    = formData.number_seats
+						, total_amount    = formData.number_seats * prc.event_detail.price
+						, special_request = formData.special_request
+					}
+				};
+				
+				// get booking session
+				eventSessions =  eventBookingService.getBookingSessions(event_booking=eventBooked);
+				// add session to event detail struct
+				bookingDetail.booking_detail.sessions = ValueList(eventSessions.label) ?: "";
+
+				// send confirmation email
+				eventBookingService.sendEventBookingConfirmationEmail(
+					  email_address   = formData.email
+					, firstname       = formData.firstname
+					, lastname        = formData.lastname
+					, event_details   = eventDetail
+					, booking_details = bookingDetail
+				);
+
 				alertClass = "alert-success";
-				validation.setGeneralMessage( translateResource( "forms:alert.form_success" ) );
+				validation.setGeneralMessage( translateResource( "forms:alert.form_success_eventbooking" ) );
 			}
 			else {
 				alertClass = "alert-danger";
