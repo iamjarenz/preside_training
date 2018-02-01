@@ -18,6 +18,7 @@ component extends="preside.system.config.Config" {
 		settings.features.websiteUsers.enabled = true;
 
 		_setupDerivatives( settings.assetmanager.derivatives );
+		_setupEmailSettings();
 
 
 	}
@@ -41,5 +42,28 @@ component extends="preside.system.config.Config" {
 		    	, args   = { width=770, height=400 } 
 		    } ]
 		};
+	}
+
+
+	private void function _setupEmailSettings(){
+
+		settings.email.templates.MemberConfirmation = {
+			  feature       = "cms"
+			, recipientType = "websiteUser"
+			, parameters    = [
+				{ id="details" , required=true }
+			]
+		};
+		settings.email.templates.EventBooking = {
+			  feature       = "cms"
+			, recipientType = "anonymous"
+			, parameters    = [
+				  { id="display_name" , required=true }
+				, { id="event_details" , required=true }
+				, { id="booking_details" , required=true }
+			]
+		};
+
+
 	}
 }
