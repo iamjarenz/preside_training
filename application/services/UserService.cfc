@@ -6,11 +6,14 @@ component {
 // constructor
 	/**
 	 * @bcryptService.inject              bcryptService
+	 * @notificationService.inject        notificationService
 	 */
 	public any function init(
-		required any bcryptService
+		  required any bcryptService
+		, required any notificationService
 	) {
 		_setBCryptService( arguments.bcryptService );
+		_setNotificationService( arguments.notificationService );
 
 		return this;
 	}
@@ -126,8 +129,18 @@ component {
 			, args     = {
 				  member_details  = arguments.member_details
 				, display_name    = display_name
-				, login_id        = login_id
+				, login_id        = arguments.login_id
 			}
+		);
+
+
+		// add login_id to details
+		member_details.login_id = arguments.login_id;
+		// send notification
+		_getNotificationService().createNotification(
+			  topic = "newMemberRegistration"
+			, type  = "info"
+			, data  = { member_details=arguments.member_details }
 		);
 	}
 
@@ -138,6 +151,12 @@ component {
 	}
 	private void function _setBCryptService( required any bCryptService ) {
 		_bCryptService = arguments.bCryptService;
+	}
+	private any function _getNotificationService()  {
+		return _notificationService;
+	}
+	private void function _setNotificationService( required any notificationService )  {
+		_notificationService = arguments.notificationService;
 	}
 
 

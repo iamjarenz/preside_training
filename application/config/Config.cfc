@@ -25,7 +25,6 @@ component extends="preside.system.config.Config" {
 
 
 	private void function _setupDerivatives( required struct derivatives ) {
-
 		derivatives.leadImage = {
 		      permissions     = "inherit"
 		    , inEditor        = true
@@ -46,7 +45,6 @@ component extends="preside.system.config.Config" {
 
 
 	private void function _setupEmailSettings(){
-
 		settings.email.templates.MemberConfirmation = {
 			  feature       = "cms"
 			, recipientType = "websiteUser"
@@ -63,7 +61,13 @@ component extends="preside.system.config.Config" {
 				, { id="booking_details" , required=true }
 			]
 		};
-
-
 	}
+
+	private void function _setupNotificationTopics(){
+		settings.notificationTopics = settings.notificationTopics ?: [];
+
+		settings.notificationTopics.append( "newMemberRegistration" );
+		// settings.notificationTopics.append( "newEventBooking"     );
+	}
+
 }
