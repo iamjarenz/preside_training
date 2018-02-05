@@ -6,11 +6,14 @@ component {
 // constructor
 	/**
 	 * @EventService.inject              EventService
+	 * @notificationService.inject        notificationService
 	 */
     public any function init(
-		required any EventService
+		  required any EventService
+		, required any notificationService
     ) {
 		_setEventService( arguments.EventService );
+		_setNotificationService( arguments.notificationService );
 
         return this;
     }
@@ -89,9 +92,20 @@ component {
 			  template = "EventBooking"
 			, to       = [ arguments.email_address ]
 			, args     = {
-				  event_details  = arguments.event_details
-				, booking_details  = arguments.booking_details
+				  event_details   = arguments.event_details
+				, booking_details = arguments.booking_details
 				, display_name    = display_name
+			}
+		);
+
+
+		// send notification
+		_getNotificationService().createNotification(
+			  topic = "newEventBooking"
+			, type  = "info"
+			, data  = { 
+				  event_details   = arguments.event_details
+				, booking_details = arguments.booking_details
 			}
 		);
 	}
@@ -102,5 +116,11 @@ component {
 	}
 	private void function _setEventService( required any EventService ) {
 		_EventService = arguments.EventService;
+	}
+	private any function _getNotificationService()  {
+		return _notificationService;
+	}
+	private void function _setNotificationService( required any notificationService )  {
+		_notificationService = arguments.notificationService;
 	}
 }

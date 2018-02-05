@@ -46,8 +46,8 @@ component {
 		var eventBooked = "";
 		var eventSessions = "";
 		var eventRegions = "";
-		var eventDetail = {};
-		var bookingDetail = {};
+		var eventDetail = structNew( "ordered" );
+		var bookingDetail = structNew( "ordered" );
 		var hasError = false;
 
 
@@ -78,8 +78,8 @@ component {
 						  title      = prc.event_detail.title
 						, start_date = prc.event_detail.start_date
 						, end_date   = prc.event_detail.end_date
-						, category   = prc.event_detail.category_label
 						, price      = prc.event_detail.price
+						, category   = prc.event_detail.category_label
 					}
 				};
 
