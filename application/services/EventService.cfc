@@ -134,4 +134,43 @@ component {
 		);
 
     }
+
+    public query function getEventSlugById( required string eventId ) {
+
+    	return  $getPresideObjectService().selectData(
+			  objectName   = "event_detail"
+			, selectFields = [ "page.slug" ]
+			, filter = { "page.id" = arguments.eventId }
+		);
+    }
+
+    public query function getEventBySlug( required string eventSlug ) {
+
+    	return  $getPresideObjectService().selectData(
+			  objectName   = "event_detail"
+			, selectFields = [ 
+				  "event_detail.id"
+				, "page.title"
+				, "event_detail.start_date"
+				, "event_detail.end_date"
+				, "event_detail.bookable"
+				, "event_detail.price"
+				, "event_detail.category"
+				, "category.label as category_label"
+			]
+			, filter = { "page.slug" = arguments.eventSlug }
+		);
+    }
+    public query function getEventSessions( required string eventId ) {
+
+    	return  $getPresideObjectService().selectData(
+			selectFields = [
+				  "session.id"
+				, "session.label"
+			]
+			, objectName = "session"
+			, filter     = { "session.event_detail" = arguments.eventId }
+			, orderBy    = "session.label ASC"
+		);
+    }
 }

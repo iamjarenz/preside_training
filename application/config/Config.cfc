@@ -18,13 +18,13 @@ component extends="preside.system.config.Config" {
 		settings.features.websiteUsers.enabled = true;
 
 		_setupDerivatives( settings.assetmanager.derivatives );
+		_setupEmailSettings();
 
 
 	}
 
 
 	private void function _setupDerivatives( required struct derivatives ) {
-
 		derivatives.leadImage = {
 		      permissions     = "inherit"
 		    , inEditor        = true
@@ -42,4 +42,32 @@ component extends="preside.system.config.Config" {
 		    } ]
 		};
 	}
+
+
+	private void function _setupEmailSettings(){
+		settings.email.templates.MemberConfirmation = {
+			  feature       = "cms"
+			, recipientType = "websiteUser"
+			, parameters    = [
+				{ id="details" , required=true }
+			]
+		};
+		settings.email.templates.EventBooking = {
+			  feature       = "cms"
+			, recipientType = "anonymous"
+			, parameters    = [
+				  { id="display_name" , required=true }
+				, { id="event_details" , required=true }
+				, { id="booking_details" , required=true }
+			]
+		};
+	}
+
+	private void function _setupNotificationTopics(){
+		settings.notificationTopics = settings.notificationTopics ?: [];
+
+		settings.notificationTopics.append( "newMemberRegistration" );
+		// settings.notificationTopics.append( "newEventBooking"     );
+	}
+
 }
