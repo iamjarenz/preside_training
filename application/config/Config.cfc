@@ -19,7 +19,8 @@ component extends="preside.system.config.Config" {
 
 		_setupDerivatives( settings.assetmanager.derivatives );
 		_setupEmailSettings();
-
+		_setupNotificationTopics();
+		_setupInterceptors();
 
 	}
 
@@ -67,7 +68,13 @@ component extends="preside.system.config.Config" {
 		settings.notificationTopics = settings.notificationTopics ?: [];
 
 		settings.notificationTopics.append( "newMemberRegistration" );
-		// settings.notificationTopics.append( "newEventBooking"     );
+		settings.notificationTopics.append( "newEventBooking"     );
+		settings.notificationTopics.append( "updateMemberDetails"     );
+	}
+
+
+	private void function _setupInterceptors(){
+		interceptors.prepend( { class="app.interceptors.DataChangeInterceptor", properties={} } );
 	}
 
 }
