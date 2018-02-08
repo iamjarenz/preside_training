@@ -22,7 +22,7 @@ component {
 
 	private string function emailHtml( event, rc, prc, args={} ) {
 
-		args.interceptData = _reorderData( event=event, args=deserializeJSON( args.data ?: "" ) );
+		args.userData = _reorderData( event=event, args=deserializeJSON( args.data ?: "" ) );
 
 		return renderView(
 			  view = "/renderers/notifications/updateMemberDetails/emailHtml"
@@ -32,7 +32,7 @@ component {
 
 	private string function emailText( event, rc, prc, args={} ) {
 
-		args.interceptData = _reorderData( event=event, args=deserializeJSON( args.data ?: "" ) );
+		args.userData = _reorderData( event=event, args=deserializeJSON( args.data ?: "" ) );
 
 		return renderView(
 			  view = "/renderers/notifications/updateMemberDetails/emailText"
@@ -44,9 +44,9 @@ component {
 
 		var memberDataOrdered = structNew( "ordered" );
 
-		memberDataOrdered.login_id      = args.interceptData.login_id      ?: "";
-		memberDataOrdered.display_name  = args.interceptData.display_name  ?: "";
-		memberDataOrdered.email_address = args.interceptData.email_address ?: "";
+		memberDataOrdered.login_id      = args.userData.login_id      ?: "";
+		memberDataOrdered.display_name  = args.userData.display_name  ?: "";
+		memberDataOrdered.email_address = args.userData.email_address ?: "";
 
 		return memberDataOrdered;
 	}

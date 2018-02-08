@@ -50,7 +50,7 @@ component {
 		memberDataOrdered.login_id      = args.member_details.login_id;
 		memberDataOrdered.firstname     = args.member_details.personal.firstname       ?: "";
 		memberDataOrdered.lastname      = args.member_details.personal.lastname        ?: "";
-		memberDataOrdered.dob           = dateFormat( args.member_details.personal.dob ?: "", "dd mmm, yyyy" );
+		memberDataOrdered.dob           = dateFormat( args.member_details.personal.dob ?: "", "dd-mmm-yyyy" );
 		memberDataOrdered.email_address = args.member_details.personal.email           ?: "";
 		memberDataOrdered.gender        = args.member_details.personal.gender          ?: "";
 		memberDataOrdered.address       = args.member_details.personal.address         ?: "";

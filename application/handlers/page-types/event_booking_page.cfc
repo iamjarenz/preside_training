@@ -135,6 +135,7 @@ component {
 					, alertMessage     = validation.getGeneralMessage()
 					, savedData        = formData
 					, validationResult = validation
+					, success          = !isEmptyString(eventBooked)
 			}
 		);
 	}
