@@ -112,6 +112,33 @@ component {
 		);
 	}
 
+	public query function getWebsiteUserById( required string user_id ) {
+
+		return $getPresideObjectService().selectData(
+			  objectName = "website_user"
+			, id = user_id
+			, selectFields = [ 
+				  "login_id" 
+				, "email_address"
+				, "display_name"
+			]
+		);
+	}
+
+	public boolean function updateWebsiteUserEmail(
+		  required string user_id
+		, required string email_address
+	) {
+		var updated = $getPresideObjectService().updateData(
+			  objectName = "website_user"
+			, id         = user_id
+			, data       = { email_address = arguments.email_address }
+		);
+
+		return updated > 0;
+
+	}
+
 	public void function sendMemberConfirmationEmail(
 		  required string email_address
 		, required string firstname

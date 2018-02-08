@@ -2,6 +2,17 @@ component {
 
 	property name="userService" inject="UserService";
 
+
+
+	public void function preHandler( event, action, eventArguments ) {
+
+		if ( isLoggedIn() ) {
+			event.notFound();
+		}
+
+	}
+
+
 	private function index( event, rc, prc, args={} ) {
 		var pageId = event.getCurrentPageId();
 
@@ -34,9 +45,7 @@ component {
 				, confirmPassword = formData.password_confirm
 			);
 
-			var invalidEmail = userService.isExistingEmail(
-				email = formData.email
-			);
+			var invalidEmail = userService.isExistingEmail( email = formData.email );
 			var invalidUserId = userService.isExistingUserId(
 				user_id = formData.user_id
 			);
@@ -47,6 +56,14 @@ component {
 				validation.setGeneralMessage( translateResource( "forms:alert.form_error" ) );
 
 				validation.addError( fieldName="password_confirm", message=translateResource( "forms:alert.confirm_password_not_match" ) );
+			}
+			if( !isValid( "email", formData.email ) ){
+				hasError = true;
+
+				alertClass = "alert-danger";
+				validation.setGeneralMessage( translateResource( "forms:alert.form_error" ) );
+
+				validation.addError( fieldName="email", message=translateResource( "forms:alert.email_invalid" ) );
 			}
 			if( invalidEmail ){
 				hasError = true;
@@ -142,6 +159,7 @@ component {
 					, alertMessage     = validation.getGeneralMessage()
 					, savedData        = formData
 					, validationResult = validation
+					, success          = !isEmptyString(websiteUser) && !isEmptyString(userDetail)
 			}
 		);
 	}

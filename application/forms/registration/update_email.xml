@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form i18nBaseUri="registration.update_email:">
+	<tab id="main">
+		<fieldset id="udpate_details">
+			<field name="login_id"      control="readonly"  />
+			<field name="display_name"  control="readonly" />
+			<field name="email_address" control="emailInput"   required="true"  />
+		</fieldset>
+	</tab>
+</form>

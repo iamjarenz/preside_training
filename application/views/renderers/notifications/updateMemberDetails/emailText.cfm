@@ -1,10 +1,10 @@
 <cfscript>
-	interceptData = args.interceptData ?: {};
+	userData = args.userData ?: {};
 </cfscript>
 <cfoutput>
-Updated details for member #interceptData.display_name ?: ""#: 
-<cfloop collection="#interceptData#" item="item">
-#translateResource( 'preside-objects.website_user:field.#item#.title' )#: #interceptData["#item#"]#
+Updated details for member #userData.display_name ?: ""#: 
+<cfloop collection="#userData#" item="item">
+#translateResource( 'preside-objects.website_user:field.#item#.title' )#: #userData["#item#"]#
 </cfloop>
 
 </cfoutput>
