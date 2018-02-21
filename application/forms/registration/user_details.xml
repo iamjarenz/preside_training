@@ -8,6 +8,7 @@
 			<field name="email"         control="emailInput"   required="true"  />
 			<field name="gender"        control="radio"        required="false" values="Male,Female" labels="Male,Female"  />
 			<field name="address"       control="textarea"     required="false" rows="7" />
+			<field name="country"       control="select"       required="false" values="UK,Asian,American,European" labels="UK,Asian,American,European" removeObjectPickerClass="true" />
 			<field name="interested_in" control="checkboxList" required="false" object="category"   />
 		</fieldset>
 		<fieldset id="account_info">

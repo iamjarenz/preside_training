@@ -12,7 +12,7 @@ component {
 
 
 		prc.user_details = websiteLoginService.getLoggedInUserDetails();
-		var websiteUser = queryRowToStruct( userService.getWebsiteUserById( prc.user_details.id ) );
+		var websiteUser  =  userService.getWebsiteUserById( prc.user_details.id );
 
 		if( isNull( rc.savedData.login_id ) ) {
 			rc.savedData.login_id = websiteUser.login_id ?: "";

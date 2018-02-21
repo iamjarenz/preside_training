@@ -42,8 +42,9 @@ component {
 
 	private string function emailText( event, rc, prc, args={} ) {
 
-		args.eventDetails = _reorderEventData( args=deserializeJSON( args.data ?: "" ) );
-		args.bookingDetails = _reorderBookingData( args=deserializeJSON( args.data ?: "" ) );
+		var data = deserializeJSON( args.data ?: "" )
+		args.eventDetails = _reorderEventData( args=data );
+		args.bookingDetails = _reorderBookingData( args=data );
 		
 		return renderView(
 			  view = "/renderers/notifications/newEventBooking/emailText"

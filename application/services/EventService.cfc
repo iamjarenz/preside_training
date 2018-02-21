@@ -155,10 +155,31 @@ component {
 				, "event_detail.end_date"
 				, "event_detail.bookable"
 				, "event_detail.price"
+				, "event_detail.available_seats"
+				, "event_detail.booked_seats"
 				, "event_detail.category"
 				, "category.label as category_label"
 			]
 			, filter = { "page.slug" = arguments.eventSlug }
+		);
+    }
+    public query function getEventById( required string eventId ) {
+
+    	return  $getPresideObjectService().selectData(
+			  objectName   = "event_detail"
+			, selectFields = [ 
+				  "event_detail.id"
+				, "page.title"
+				, "event_detail.start_date"
+				, "event_detail.end_date"
+				, "event_detail.bookable"
+				, "event_detail.price"
+				, "event_detail.available_seats"
+				, "event_detail.booked_seats"
+				, "event_detail.category"
+				, "category.label as category_label"
+			]
+			, id = arguments.eventId
 		);
     }
     public query function getEventSessions( required string eventId ) {
