@@ -30,6 +30,12 @@
 					<td>#( args.personal.email ?: "" )#</td>
 				</tr>
 
+				<cfif len( args.personal.country ?: "" )>
+					<tr>
+						<td>Country</td>
+						<td>#args.personal.country#</td>
+					</tr>
+				</cfif>
 				<cfif len( args.personal.address ?: "" )>
 					<tr>
 						<td>Address</td>
@@ -46,5 +52,9 @@
 
 			</tbody>
 		</table>
+		
+		<cfif event.isUKMember( args.personal.country ?: "" )>
+			<p><strong>For UK Members only:</strong> You get a promotinal pacakge for registring! Yaaaay!</p>
+		</cfif>
 	</cfif>
 </cfoutput>

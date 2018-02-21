@@ -53,6 +53,7 @@ component {
 		memberDataOrdered.dob           = dateFormat( args.member_details.personal.dob ?: "", "dd-mmm-yyyy" );
 		memberDataOrdered.email_address = args.member_details.personal.email           ?: "";
 		memberDataOrdered.gender        = args.member_details.personal.gender          ?: "";
+		memberDataOrdered.country       = args.member_details.personal.country         ?: "";
 		memberDataOrdered.address       = args.member_details.personal.address         ?: "";
 		memberDataOrdered.interests     = replace( args.member_details.interests       ?: "", ",", ", ", "all" );
 

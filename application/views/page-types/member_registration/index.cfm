@@ -16,6 +16,11 @@
 			</cfif>
 
 			<cfif rc.success ?: false >
+
+				<cfif event.isUKMember( rc.savedData.country ?: "" )>
+					<p><strong>For UK Members only:</strong> You get a promotinal pacakge for registring! Yaaaay!</p>
+				</cfif>
+
 				<p>Click here to return to <a href="#event.buildLink(page='homepage')#">homepage</a>.</p>			
 			<cfelse>
 

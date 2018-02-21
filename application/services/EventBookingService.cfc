@@ -26,7 +26,8 @@ component {
 		, required string email_address
 		, required numeric number_seats
 		, required numeric price
-		, string special_request = ""
+		,          string special_request = ""
+		,          string sessions        = ""
 	) {
 
 		var total_amount      = arguments.price * arguments.number_seats;
@@ -41,26 +42,33 @@ component {
 	        	, number_seats    = arguments.number_seats
 	        	, total_amount    = total_amount
 	        	, special_request = arguments.special_request
+	        	, sessions        = arguments.sessions
 	        }
+			, insertManyToManyRecords  = true
 		);
 	}
 
-
-	public void function saveBookingSessions(
-		  required string event_booking
-		, required array sessions
+	public boolean function saveBookedSeats( 
+		  required string  event_id
+		, required struct  event_details
+		, required numeric number_seats 
+		, required numeric booked_seats 
+		, required numeric available_seats 
 	) {
-		var ctr = 1;
-		for (session_item in sessions) {
-			$getPresideObjectService().insertData(
-				  objectName = "event_booking_sessions"
-				, data       = { 
-					  event_booking = event_booking
-					, session       = session_item
-					, sort_order    = ctr
-				}
+		var booked = number_seats + booked_seats;
+		event_details.event_detail.booked_seats    = booked;
+		event_details.event_detail.available_seats = available_seats;
+
+		transaction {
+
+			var updated = $getPresideObjectService().updateData(
+				  objectName = "event_detail"
+				, id         = event_id
+				, data       = { booked_seats = booked }
 			);
-			ctr++;
+
+			return updated > 0;
+
 		}
 
 	}

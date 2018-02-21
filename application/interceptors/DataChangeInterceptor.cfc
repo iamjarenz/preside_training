@@ -2,6 +2,7 @@ component extends="coldbox.system.Interceptor" {
 
 	property name="notificationService"  inject="delayedInjector:notificationService";
 	property name="userService"  inject="delayedInjector:userService";
+	property name="eventService"  inject="delayedInjector:eventService";
 
 // PUBLIC
 	public void function configure() {}
@@ -25,6 +26,7 @@ component extends="coldbox.system.Interceptor" {
 
 				break;
 			}
+
 
 		}
 
@@ -55,23 +57,37 @@ component extends="coldbox.system.Interceptor" {
 				break;
 			}
 
+
+			case "event_detail": {
+				var slug = eventService.getEventSlugById(id).slug;
+				var eventDetail = eventService.getEventBySlug(slug);
+
+				if( data.keyExists( "booked_seats" ) && eventDetail.recordCount ) {
+
+					var eventData = structNew( "ordered" );
+
+					eventData.title     = eventDetail.title                 ?: "";          
+					eventData.available_seats = eventDetail.available_seats ?: 0;
+					eventData.booked_seats    = data.booked_seats           ?: 0;
+
+
+					if( eventData.available_seats == data.booked_seats && eventData.available_seats != 0 ) {
+						// send notification if fully booked
+						notificationService.createNotification(
+							  topic = "eventFullyBooked"
+							, type  = "alert"
+							, data  = { 
+								  event_details = eventData
+							}
+						);
+					}
+
+				}
+
+				break;
+			}
+
 		}
 	}
 
-// PRIVATE
-	private struct function _queryRowToStruct(
-		  required query   qry
-		,          numeric row = 1
-	) {
-		var strct = StructNew();
-		var cols  = ListToArray( arguments.qry.columnList );
-		var col   = "";
-
-		for( col in cols ){
-			strct[col] = arguments.qry[col][arguments.row];
-		}
-
-		return strct;
-
-	}
 }

@@ -5,4 +5,5 @@
 	<div class="jumbotron"><h1>#args.title#</h1></div>
 
 	#args.main_content#
+
 </cfoutput>
