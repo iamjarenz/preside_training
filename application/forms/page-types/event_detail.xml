@@ -15,9 +15,10 @@
 	</tab>
 	<tab id="event_booking">
 		<fieldset id="event_booking">
-			<field binding="event_detail.bookable"          />
-			<field binding="event_detail.price"          />
-			<field binding="event_detail.sessions"      />
+			<field binding="event_detail.bookable"        />
+			<field binding="event_detail.price"           />
+			<field binding="event_detail.available_seats" />
+			<field binding="event_detail.sessions"        />
 		</fieldset>
 	</tab>
 </form>

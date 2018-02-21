@@ -2,6 +2,17 @@ component {
 
 	property name="userService" inject="UserService";
 
+
+
+	public void function preHandler( event, action, eventArguments ) {
+
+		if ( isLoggedIn() ) {
+			event.notFound();
+		}
+
+	}
+
+
 	private function index( event, rc, prc, args={} ) {
 		var pageId = event.getCurrentPageId();
 
@@ -23,7 +34,6 @@ component {
 		var websiteUser = "";
 		var userDetail = "";
 		var userInterests = "";
-		var memberDetail = {};
 		var hasError = false;
 
 
@@ -34,9 +44,7 @@ component {
 				, confirmPassword = formData.password_confirm
 			);
 
-			var invalidEmail = userService.isExistingEmail(
-				email = formData.email
-			);
+			var invalidEmail = userService.isExistingEmail( email = formData.email );
 			var invalidUserId = userService.isExistingUserId(
 				user_id = formData.user_id
 			);
@@ -47,6 +55,14 @@ component {
 				validation.setGeneralMessage( translateResource( "forms:alert.form_error" ) );
 
 				validation.addError( fieldName="password_confirm", message=translateResource( "forms:alert.confirm_password_not_match" ) );
+			}
+			if( !isValid( "email", formData.email ) ){
+				hasError = true;
+
+				alertClass = "alert-danger";
+				validation.setGeneralMessage( translateResource( "forms:alert.form_error" ) );
+
+				validation.addError( fieldName="email", message=translateResource( "forms:alert.email_invalid" ) );
 			}
 			if( invalidEmail ){
 				hasError = true;
@@ -65,64 +81,36 @@ component {
 				validation.addError( fieldName="user_id", message=translateResource( "forms:alert.user_id_already_exists" ) );
 			}
 			if( !hasError ) {
-				userDetail  = userService.saveWebsiteUserDetails(
-					  firstname = formData.firstname
-					, lastname  = formData.lastname
-					, dob       = formData.dob
-					, address   = formData.address
-					, gender    = formData.gender
-				);
-				
-
-				if( !isEmptyString(userDetail) ) {
-					websiteUser = userService.saveWebsiteUser(
-			        	  login_id      = formData.user_id
-			        	, email_address = formData.email
-			        	, password      = formData.password
-			        	, firstname     = formData.firstname
-						, lastname      = formData.lastname
-			        	, user_detail   = userDetail
+				transaction {
+					userDetail  = userService.saveWebsiteUserDetails(
+						  firstname = formData.firstname
+						, lastname  = formData.lastname
+						, dob       = formData.dob
+						, address   = formData.address
+						, country   = formData.country
+						, gender    = formData.gender
+						, interests = formData.interested_in
 					);
+					
 
-
-					if( !isEmptyString(websiteUser) && !isEmptyString(userDetail) && !isEmptyString(formData.interested_in) ) {
-
-						userService.saveWebsiteUserInterest(
-							  interests = listToArray(formData.interested_in) 
-							, user_id   = userDetail
+					if( !isEmptyString(userDetail) ) {
+						websiteUser = userService.saveWebsiteUser(
+				        	  login_id      = formData.user_id
+				        	, email_address = formData.email
+				        	, password      = formData.password
+				        	, firstname     = formData.firstname
+							, lastname      = formData.lastname
+				        	, user_detail   = userDetail
 						);
 
-						userInterests = userService.getUserInterests(userDetail);
+						// send email confirmation
+						args.userDetail = userDetail;
+						args.formData = formData;
+						_sendMemberConfirmationEmail( argumentCollection = arguments );
+
+						alertClass = "alert-success";
+						validation.setGeneralMessage( translateResource( "forms:alert.form_success_registration" ) );
 					}
-
-					memberDetail = {
-						personal = {
-							  firstname = formData.firstname
-							, lastname  = formData.lastname
-							, email     = formData.email
-							, gender    = formData.gender
-							, dob       = formData.dob
-							, address   = formData.address
-						}
-						, interests   = ValueList(userInterests.label) ?: ""
-					};
-
-
-
-					userService.sendMemberConfirmationEmail(
-						  email_address  = formData.email
-						, firstname      = formData.firstname
-						, lastname       = formData.lastname
-						, member_details = memberDetail
-						, login_id       = formData.user_id
-					);
-
-					alertClass = "alert-success";
-					validation.setGeneralMessage( translateResource( "forms:alert.form_success_registration" ) );
-				}
-				else {
-					alertClass = "alert-danger";
-					validation.setGeneralMessage( translateResource( "forms:alert.form_error_submission" ) );
 				}
 			}
 
@@ -142,10 +130,39 @@ component {
 					, alertMessage     = validation.getGeneralMessage()
 					, savedData        = formData
 					, validationResult = validation
+					, success          = !isEmptyString(websiteUser) && !isEmptyString(userDetail)
 			}
 		);
 	}
 
+
+// PRIVATE
+	private void function _sendMemberConfirmationEmail( event, rc, prc, args={} ) {
+
+		var userInterests = userService.getUserInterests( arguments.args.userDetail );
+
+		var memberDetail = {
+			personal = {
+				  firstname = args.formData.firstname
+				, lastname  = args.formData.lastname
+				, email     = args.formData.email
+				, gender    = args.formData.gender
+				, dob       = args.formData.dob
+				, country   = args.formData.country
+				, address   = args.formData.address
+			}
+			, interests   = userInterests.recordCount ? ValueList(userInterests.label) : ""
+		};
+
+
+		userService.sendMemberConfirmationEmail(
+			  email_address  = args.formData.email
+			, firstname      = args.formData.firstname
+			, lastname       = args.formData.lastname
+			, member_details = memberDetail
+			, login_id       = args.formData.user_id
+		);
+	}
 
 
 }

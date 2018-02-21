@@ -69,8 +69,10 @@ component {
 		  required string firstname
 		, required string lastname
 		, required string dob
+		, string country = ""
 		, string address = ""
 		, string gender  = ""
+		, string interests  = ""
 	) {
 
 		return  $getPresideObjectService().insertData(
@@ -79,27 +81,12 @@ component {
 				  firstname     = arguments.firstname
 				, lastname      = arguments.lastname
 				, dob           = dateFormat(arguments.dob, "yyyy-mm-dd" )
+				, country       = arguments.country
 				, address       = arguments.address
-				, gender        = arguments.gender
+				, category      = arguments.interests
 			}
+			, insertManyToManyRecords  = true
 		);
-	}
-
-	public void function saveWebsiteUserInterest(
-		  required array interests
-		, required string user_id
-	) {
-
-		for (interest in interests) {
-			$getPresideObjectService().insertData(
-				  objectName = "user_interests"
-				, data       = { 
-					  user_detail   = user_id
-					, category      = interest
-				}
-			);
-		}
-
 	}
 
 	public query function getUserInterests( required string user_detail ) {
@@ -110,6 +97,35 @@ component {
 			, filter = { "user_detail" = arguments.user_detail }
 			, orderBy      = "category.label ASC"
 		);
+	}
+
+	public query function getWebsiteUserById( required string user_id ) {
+
+		return $getPresideObjectService().selectData(
+			  objectName = "website_user"
+			, id = user_id
+			, selectFields = [ 
+				  "login_id" 
+				, "email_address"
+				, "display_name"
+				, "user_detail.firstname"
+				, "user_detail.lastname"
+			]
+		);
+	}
+
+	public boolean function updateWebsiteUserEmail(
+		  required string user_id
+		, required string email_address
+	) {
+		var updated = $getPresideObjectService().updateData(
+			  objectName = "website_user"
+			, id         = user_id
+			, data       = { email_address = arguments.email_address }
+		);
+
+		return updated > 0;
+
 	}
 
 	public void function sendMemberConfirmationEmail(

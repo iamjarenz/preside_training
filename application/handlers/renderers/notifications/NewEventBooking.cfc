@@ -42,8 +42,9 @@ component {
 
 	private string function emailText( event, rc, prc, args={} ) {
 
-		args.eventDetails = _reorderEventData( args=deserializeJSON( args.data ?: "" ) );
-		args.bookingDetails = _reorderBookingData( args=deserializeJSON( args.data ?: "" ) );
+		var data = deserializeJSON( args.data ?: "" )
+		args.eventDetails = _reorderEventData( args=data );
+		args.bookingDetails = _reorderBookingData( args=data );
 		
 		return renderView(
 			  view = "/renderers/notifications/newEventBooking/emailText"
@@ -57,8 +58,8 @@ component {
 		var eventDataOrdered = structNew( "ordered" );
 
 		eventDataOrdered.event_title = args.event_details.event_detail.title                   ?: "";
-		eventDataOrdered.start_date  = dateFormat( args.event_details.event_detail.start_date  ?: "", "dd mmm, yyyy" );
-		eventDataOrdered.end_date    = dateFormat( args.event_details.event_detail.end_date    ?: "", "dd mmm, yyyy" );
+		eventDataOrdered.start_date  = dateFormat( args.event_details.event_detail.start_date  ?: "", "dd-mmm-yyyy" );
+		eventDataOrdered.end_date    = dateFormat( args.event_details.event_detail.end_date    ?: "", "dd-mmm-yyyy" );
 		eventDataOrdered.region      = replace( args.event_details.event_detail.region         ?: "", ",", ", ", "all" );
 		eventDataOrdered.category    = replace( args.event_details.event_detail.category       ?: "", ",", ", ", "all" );
 		eventDataOrdered.price    = args.event_details.event_detail.price                   ?: "";

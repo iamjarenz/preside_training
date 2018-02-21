@@ -3,5 +3,5 @@
 	bookingDetails = args.bookingDetails ?: {};
 </cfscript>
 <cfoutput>
-	<i class="fa fa-calendar"></i> #bookingDetails.firstname ?: ""# #bookingDetails.lastname ?: ""# just booked an event for #eventDetails.title ?: ""#.
+	<i class="fa fa-calendar"></i> #bookingDetails.firstname ?: ""# #bookingDetails.lastname ?: ""# just booked an event for #eventDetails.event_title ?: ""#.
 </cfoutput>
